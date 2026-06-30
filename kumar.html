@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaddam Vineeth Kumar — Full Stack .NET Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy-900: #0B1018;
+            --navy-800: #10182A;
+            --panel: #141D33;
+            --panel-2: #1A2540;
+            --hairline: #26314D;
+            --ink: #E9EDF5;
+            --ink-dim: #9AA6BD;
+            --ink-faint: #5E6A85;
+            --copper: #E0954E;
+            --copper-dim: #7A5630;
+            --teal: #54D6C2;
+            --teal-dim: #1E5C53;
+            --green: #6FCF7F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--navy-900);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--copper);
+            color: var(--navy-900);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--copper);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 0 3px rgba(111, 207, 127, 0.15);
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(11, 16, 24, 0.88);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--hairline);
+        }
+
+        nav .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            letter-spacing: -0.02em;
+        }
+
+        .brand span {
+            color: var(--copper);
+        }
+
+        .navlinks {
+            display: flex;
+            gap: 28px;
+            font-size: 13.5px;
+            color: var(--ink-dim);
+        }
+
+        .navlinks a {
+            transition: color .15s ease;
+        }
+
+        .navlinks a:hover {
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            border: 1px solid var(--hairline);
+            padding: 7px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--ink);
+            transition: border-color .15s ease, background .15s ease;
+        }
+
+        .nav-cta:hover {
+            border-color: var(--copper);
+            background: rgba(224, 149, 78, 0.08);
+        }
+
+        /* ---------- HERO ---------- */
+        header.hero {
+            padding: 96px 0 72px;
+            border-bottom: 1px solid var(--hairline);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.5;
+            background-image:
+                linear-gradient(var(--hairline) 1px, transparent 1px),
+                linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 70% 60% at 70% 20%, black 10%, transparent 70%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5.4vw, 56px);
+            line-height: 1.08;
+            margin: 18px 0 16px;
+            max-width: 760px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--copper);
+        }
+
+        .hero p.lede {
+            font-size: 17px;
+            color: var(--ink-dim);
+            max-width: 580px;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 44px;
+        }
+
+        .btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            padding: 11px 20px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform .15s ease, background .15s ease, border-color .15s ease;
+        }
+
+        .btn-primary {
+            background: var(--copper);
+            color: var(--navy-900);
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background: #EBA964;
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--hairline);
+            color: var(--ink);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--ink-dim);
+            transform: translateY(-1px);
+        }
+
+        /* status bar — signature element */
+        .statusbar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: 1px solid var(--hairline);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--panel);
+        }
+
+        .stat {
+            padding: 18px 20px;
+            border-right: 1px solid var(--hairline);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat .num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--teal);
+        }
+
+        .stat .lbl {
+            font-size: 11.5px;
+            color: var(--ink-faint);
+            margin-top: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+        }
+
+        /* ---------- SECTION SHARED ---------- */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--hairline);
+        }
+
+        .sec-head {
+            margin-bottom: 44px;
+        }
+
+        .sec-head h2 {
+            font-size: 28px;
+            margin-top: 10px;
+        }
+
+        .sec-head .num {
+            color: var(--ink-faint);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+        }
+
+        /* ---------- SKILLS ---------- */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--hairline);
+            border: 1px solid var(--hairline);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-block {
+            background: var(--panel);
+            padding: 24px 28px;
+        }
+
+        .skill-block h3 {
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--copper);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill {
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            background: var(--panel-2);
+            border: 1px solid var(--hairline);
+            color: var(--ink-dim);
+        }
+
+        /* ---------- EXPERIENCE ---------- */
+        .job {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 32px;
+            padding: 32px 0;
+            border-top: 1px solid var(--hairline);
+        }
+
+        .job:first-of-type {
+            border-top: none;
+        }
+
+        .job-meta .role {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .job-meta .org {
+            font-size: 14px;
+            color: var(--copper);
+            margin-bottom: 8px;
+        }
+
+        .job-meta .dates {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--ink-faint);
+        }
+
+        .job ul {
+            list-style: none;
+        }
+
+        .job li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 11px;
+            font-size: 14.5px;
+            color: var(--ink-dim);
+        }
+
+        .job li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-size: 12px;
+            top: 2px;
+        }
+
+        .job li b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* ---------- PROJECTS ---------- */
+        .projects {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--hairline);
+            border: 1px solid var(--hairline);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .project {
+            background: var(--panel);
+            padding: 30px 32px;
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .project-top h3 {
+            font-size: 19px;
+        }
+
+        .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-faint);
+        }
+
+        .project .client {
+            font-size: 13px;
+            color: var(--copper);
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project p.desc {
+            font-size: 14.5px;
+            color: var(--ink-dim);
+            margin-bottom: 16px;
+            max-width: 760px;
+        }
+
+        .project ul {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .project li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--ink-dim);
+        }
+
+        .project li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-size: 11px;
+            top: 3px;
+        }
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .stack span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-faint);
+            background: var(--panel-2);
+            border: 1px solid var(--hairline);
+            padding: 4px 9px;
+            border-radius: 4px;
+        }
+
+        /* ---------- EDUCATION / FOOTER ---------- */
+        .edu {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .edu h3 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .edu .org {
+            color: var(--ink-dim);
+            font-size: 14px;
+        }
+
+        .edu .dates {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            color: var(--ink-faint);
+        }
+
+        footer {
+            padding: 64px 0 48px;
+        }
+
+        footer .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        footer .f-left h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        footer .f-left p {
+            color: var(--ink-dim);
+            font-size: 14px;
+            max-width: 380px;
+        }
+
+        .f-links {
+            display: flex;
+            gap: 14px;
+        }
+
+        .f-links a {
+            border: 1px solid var(--hairline);
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            transition: border-color .15s ease;
+        }
+
+        .f-links a:hover {
+            border-color: var(--copper);
+            color: var(--copper);
+        }
+
+        .copyright {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--hairline);
+            font-size: 12.5px;
+            color: var(--ink-faint);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media (max-width:760px) {
+            .navlinks {
+                display: none;
+            }
+
+            .statusbar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat:nth-child(2) {
+                border-right: none;
+            }
+
+            .skill-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .job {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="wrap">
+            <div class="brand">GVK<span>.dev</span></div>
+            <div class="navlinks">
+                <a href="#stack">Stack</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+            </div>
+            <a class="nav-cta" href="mailto:vineethkumargaddam143@gmail.com">Get in touch</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-grid"></div>
+        <div class="wrap hero-inner">
+            <div class="eyebrow">Dot Net full stack developer</div>
+            <h1>Building backend systems that <em>healthcare, legal, and banking</em> platforms run on.</h1>
+            <p class="lede">I'm Gaddam Vineeth Kumar, a Full Stack .NET Developer in Hyderabad. I design APIs, data
+                models, and Angular front ends for enterprise systems used across the US legal-medical sector and core
+                banking.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="mailto:vineethkumargaddam143@gmail.com">Email me ↗</a>
+                <a class="btn btn-ghost" href="https://github.com/vineeth879899">GitHub ↗</a>
+                <a class="btn btn-ghost" href="https://www.linkedin.com/in/vineeth-kumar-gaddam-2131a5175/">LinkedIn
+                    ↗</a>
+            </div>
+            <div class="statusbar">
+                <div class="stat">
+                    <div class="num">2.6 yrs</div>
+                    <div class="lbl">Production experience</div>
+                </div>
+                <div class="stat">
+                    <div class="num">3</div>
+                    <div class="lbl">Enterprise platforms shipped</div>
+                </div>
+                <div class="stat">
+                    <div class="num">2</div>
+                    <div class="lbl">Industries — health & finance</div>
+                </div>
+                <div class="stat">
+                    <div class="num">AWS</div>
+                    <div class="lbl">EC2 / S3 deployment owner</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="stack">
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="eyebrow">01 — Capabilities</div>
+                <h2>Stack & tools</h2>
+            </div>
+            <div class="skill-grid">
+                <div class="skill-block">
+                    <h3>Languages</h3>
+                    <div class="pills">
+                        <span class="pill">C#</span><span class="pill">TypeScript</span><span class="pill">JavaScript
+                            (ES6+)</span><span class="pill">SQL</span><span class="pill">HTML5</span><span
+                            class="pill">CSS3</span>
+                    </div>
+                </div>
+                <div class="skill-block">
+                    <h3>Frameworks</h3>
+                    <div class="pills">
+                        <span class="pill">ASP.NET Core</span><span class="pill">Angular</span><span
+                            class="pill">ASP.NET Web API</span><span class="pill">Entity Framework Core</span><span
+                            class="pill">LINQ to SQL</span><span class="pill">ADO.NET</span>
+                    </div>
+                </div>
+                <div class="skill-block">
+                    <h3>Cloud & DevOps</h3>
+                    <div class="pills">
+                        <span class="pill">AWS EC2</span><span class="pill">AWS S3</span><span
+                            class="pill">IAM</span><span class="pill">Deployment & monitoring</span>
+                    </div>
+                </div>
+                <div class="skill-block">
+                    <h3>Data & tooling</h3>
+                    <div class="pills">
+                        <span class="pill">SQL Server</span><span class="pill">Git</span><span
+                            class="pill">Jira</span><span class="pill">Postman</span><span
+                            class="pill">Swagger</span><span class="pill">Trello</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="eyebrow">02 — Track record</div>
+                <h2>Experience</h2>
+            </div>
+
+            <div class="job">
+                <div class="job-meta">
+                    <div class="role">Full Stack .NET Developer</div>
+                    <div class="org">Option Matrix Infotech</div>
+                    <div class="dates">DEC 2024 — Present · Hyderabad, India</div>
+                </div>
+                <ul>
+                    <li>Developed and deployed full-stack web applications using <b>Angular, TypeScript, ASP.NET Core
+                            Web API, and C#</b>.</li>
+                    <li>Designed and optimized <b>RESTful APIs</b> for performance, scalability, and secure data
+                        handling.</li>
+                    <li>Managed SQL Server databases with <b>LINQ to SQL</b> and <b>Entity Framework Core</b> for
+                        efficient data access.</li>
+                    <li>Built responsive, accessible Angular interfaces that improved engagement across devices.</li>
+                    <li>Owned deployment and hosting on <b>AWS (EC2, S3)</b>, using Jira for sprint tracking and GitHub
+                        for CI.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-meta">
+                    <div class="role">Full Stack .NET Developer</div>
+                    <div class="org">Vsoft Technologies Pvt Ltd</div>
+                    <div class="dates">DEC 2023 — NOV 2024 · Hyderabad, India</div>
+                </div>
+                <ul>
+                    <li>Built web applications using the <b>ASP.NET Web API</b> framework, C#, and SQL Server.</li>
+                    <li>Authored stored procedures, views, and functions for core data operations.</li>
+                    <li>Developed Angular front ends with full API integration.</li>
+                    <li>Worked across the full cycle — requirement analysis, build, test, deploy — in an Agile/Scrum
+                        team.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="eyebrow">03 — Selected work</div>
+                <h2>Projects</h2>
+            </div>
+
+            <div class="projects">
+                <div class="project">
+                    <div class="project-top">
+                        <h3>PCMX — Patient Care Management System</h3>
+                        <span class="project-tag">healthcare · legal</span>
+                    </div>
+                    <div class="client">Client: USA-based legal & medical sector</div>
+                    <p class="desc">An enterprise-grade platform for hospital networks managing personal injury cases —
+                        unifying patient intake, referral management, care coordination, claims processing, and funding
+                        workflows across legal, insurance, mass tort, and direct-pay scenarios.</p>
+                    <ul>
+                        <li>Integrated <b>AWS S3</b> for secure image and document storage.</li>
+                        <li>Built injury assessment logic to dynamically calculate Average Residual Years.</li>
+                        <li>Automated PDF generation for courtroom-ready legal documentation.</li>
+                        <li>Owned end-to-end deployment on <b>AWS (EC2, S3)</b> for system scalability and uptime.</li>
+                    </ul>
+                    <div class="stack">
+                        <span>Angular</span><span>TypeScript</span><span>C#</span><span>ASP.NET Core Web
+                            API</span><span>MS SQL Server</span><span>AWS</span><span>OpenAI API</span>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-top">
+                        <h3>LCP — Life Care Plan</h3>
+                        <span class="project-tag">healthcare · legal</span>
+                    </div>
+                    <div class="client">Client: USA-based legal & medical sector</div>
+                    <p class="desc">A web application for law firms and physicians to manage accident-related patient
+                        cases — centralizing medical records, legal documents, and physician assessments into
+                        courtroom-ready reports.</p>
+                    <ul>
+                        <li>Designed dynamic physician interview forms for structured patient data capture.</li>
+                        <li>Built injury assessment logic to dynamically calculate Average Residual Years.</li>
+                        <li>Developed RESTful APIs with <b>ASP.NET Web API</b>, optimizing data access via LINQ to SQL.
+                        </li>
+                    </ul>
+                    <div class="stack">
+                        <span>Angular</span><span>TypeScript</span><span>C#</span><span>ASP.NET Core Web
+                            API</span><span>MS SQL Server</span><span>AWS</span>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-top">
+                        <h3>Wings — Core Banking Solution</h3>
+                        <span class="project-tag">banking · fintech</span>
+                    </div>
+                    <div class="client">Client: India & global banking and cooperative sector</div>
+                    <p class="desc">A core banking product suite for commercial and cooperative banks, built to remove
+                        technology friction and give institutions self-contained operational control and transparent
+                        financial tracking.</p>
+                    <ul>
+                        <li>Designed core banking web services and business logic on open-source infrastructure.</li>
+                        <li>Built a responsive Angular UI to streamline marketing workflows and follow-up efficiency.
+                        </li>
+                        <li>Optimized SQL Server schema and queries via LINQ to SQL for performance at scale.</li>
+                    </ul>
+                    <div class="stack">
+                        <span>Angular</span><span>TypeScript</span><span>C#</span><span>ASP.NET Web API</span><span>MS
+                            SQL Server</span><span>AWS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="wrap">
+            <div class="sec-head">
+                <div class="eyebrow">04 — Background</div>
+                <h2>Education</h2>
+            </div>
+            <div class="edu">
+                <div>
+                    <h3>B.Tech, Mechanical Engineering</h3>
+                    <div class="org">Swami Vivekananda Institute of Technology, Hyderabad</div>
+                </div>
+                <div class="dates">2016 — 2020</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrap">
+            <div class="f-left">
+                <h2>Let's build something reliable.</h2>
+                <p>Open to senior .NET full stack roles in Hyderabad and remote India.</p>
+            </div>
+            <div class="f-links">
+                <a href="mailto:vineethkumargaddam143@gmail.com">Email</a>
+                <a href="https://github.com/vineeth879899">GitHub</a>
+                <a href="https://www.linkedin.com/in/vineeth-kumar-gaddam-2131a5175/">LinkedIn</a>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="copyright">© 2026 Gaddam Vineeth Kumar — +91 7330884359</div>
+        </div>
+    </footer>
+
+</body>
+</html>
